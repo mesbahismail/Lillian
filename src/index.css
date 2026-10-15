@@ -1,0 +1,129 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+@custom-variant data-open (&:where([data-open], [data-state="open"]));
+@custom-variant data-closed (&:where([data-closed], [data-state="closed"]));
+@custom-variant data-checked (&:where([data-checked], [data-state="checked"]));
+@custom-variant data-unchecked (&:where([data-unchecked], [data-state="unchecked"]));
+@custom-variant data-selected (&:where([data-selected="true"]));
+@custom-variant data-disabled (&:where([data-disabled], [data-disabled="true"]));
+@custom-variant data-active (&:where([data-active], [data-state="active"]));
+@custom-variant data-horizontal (&:where([data-orientation="horizontal"]));
+@custom-variant data-vertical (&:where([data-orientation="vertical"]));
+
+:root {
+  font-family: "Geist Variable", sans-serif;
+  color: #28332c;
+  background: #f4f8f5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --background: oklch(0.979 0.006 150);
+  --foreground: oklch(0.25 0.018 150);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.25 0.018 150);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0.018 150);
+  --primary: oklch(0.53 0.13 151);
+  --primary-foreground: oklch(0.99 0.005 150);
+  --secondary: oklch(0.96 0.012 150);
+  --secondary-foreground: oklch(0.32 0.025 150);
+  --muted: oklch(0.96 0.008 150);
+  --muted-foreground: oklch(0.57 0.02 150);
+  --accent: oklch(0.95 0.025 150);
+  --accent-foreground: oklch(0.32 0.05 150);
+  --destructive: oklch(0.58 0.22 27);
+  --border: oklch(0.91 0.012 150);
+  --input: oklch(0.91 0.012 150);
+  --ring: oklch(0.67 0.12 150);
+  --chart-1: oklch(0.65 0.13 150);
+  --chart-2: oklch(0.72 0.1 210);
+  --chart-3: oklch(0.63 0.13 290);
+  --chart-4: oklch(0.76 0.14 80);
+  --chart-5: oklch(0.67 0.15 30);
+  --radius: 0.7rem;
+  --sidebar: oklch(0.99 0.003 150);
+  --sidebar-foreground: oklch(0.25 0.018 150);
+  --sidebar-primary: oklch(0.53 0.13 151);
+  --sidebar-primary-foreground: oklch(0.99 0.005 150);
+  --sidebar-accent: oklch(0.95 0.025 150);
+  --sidebar-accent-foreground: oklch(0.32 0.05 150);
+  --sidebar-border: oklch(0.91 0.012 150);
+  --sidebar-ring: oklch(0.67 0.12 150);
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: "Geist Variable", sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #55ae7548;
+  outline-offset: 2px;
+}
+
+#root {
+  min-height: 100vh;
+}
