@@ -1,0 +1,83 @@
+/* Light mode: the same translucent white material at every surface level.
+   Nested 80% white surfaces naturally composite into brighter white layers. */
+.lillian-dashboard[data-theme=light]{
+  --surface-fill:rgb(255 255 255 / 80%);
+  --surface-stroke:#fff;
+  --surface-stroke-width:2px;
+  --surface-shadow:0 9px 20px -7px rgb(46 69 55 / 9%),0 16px 40px -8px rgb(46 69 55 / 4%);
+  --dashboard-border:var(--surface-stroke);
+  --dashboard-divider:rgb(120 145 127 / 14%);
+}
+.lillian-dashboard[data-theme=light] :is(
+  .white-layer,.glass,.inset-surface,.round-button,.source-chip,.profile-trigger,.lily-logo,
+  .summary-arrow,.chart-hover-tooltip,.chat-bubble,.chat-composer,.chat-lily,
+  .conversation-bubble,.thread-avatar,.page-status,.activity-item-icon,
+  .classic-settings-form,.workspace-action
+){
+  background:var(--surface-fill);
+  border:var(--surface-stroke-width) solid var(--surface-stroke);
+  box-shadow:var(--surface-shadow);
+}
+.lillian-dashboard[data-theme=light] :is(
+  .search-field input,.workspace-page input,.workspace-page select,
+  .profile-tools-panel input,.detail-panel input
+){
+  background:var(--surface-fill);
+  border:var(--surface-stroke-width) solid var(--surface-stroke);
+  box-shadow:var(--surface-shadow);
+}
+.lillian-dashboard[data-theme=light] :is(
+  .profile-actions-grid button,.profile-account-list button,
+  .navbar-activity-list>button,.classic-tabs button,.page-filter-tabs button,
+  .inbox-thread,.classic-tab-panel fieldset
+){
+  background:var(--surface-fill);
+  border:var(--surface-stroke-width) solid var(--surface-stroke);
+  box-shadow:var(--surface-shadow);
+}
+.lillian-dashboard[data-theme=light] .classic-tabs button[aria-selected=true]{
+  background:var(--surface-fill);
+  border:var(--surface-stroke-width) solid var(--surface-stroke);
+  border-bottom-color:transparent;
+  box-shadow:var(--surface-shadow);
+}
+.lillian-dashboard[data-theme=light] .calendar-connected-surface{background:var(--surface-fill)}
+.lillian-dashboard[data-theme=light] .calendar-connected-outline{color:var(--surface-stroke)}
+.lillian-dashboard[data-theme=light] .calendar-bookmark{filter:drop-shadow(0 9px 15px rgb(46 69 55 / 9%)) drop-shadow(0 16px 32px rgb(46 69 55 / 4%))}
+.lillian-dashboard[data-theme=light] .calendar-bookmark .date-preset[aria-pressed=true]{
+  background:var(--surface-fill);
+  border:var(--surface-stroke-width) solid var(--surface-stroke);
+  box-shadow:var(--surface-shadow);
+}
+.lillian-dashboard[data-theme=light] .dashboard-column>[data-slot=card].glass:hover{box-shadow:0 12px 25px -7px rgb(46 69 55 / 12%),0 16px 40px -8px rgb(46 69 55 / 4%)}
+/* Lines separate content; they are not additional surface strokes. */
+.lillian-dashboard[data-theme=light] :is(
+  .profile-actions-grid,.navbar-activity-content,.calendar-bookmark-footer,
+  .date-presets,.ai-chat-header,.conversation-heading,.inbox-composer,
+  .inbox-thread-list,.settings-footer,.security-summary
+){border-color:var(--dashboard-divider)}
+.lillian-dashboard[data-theme=light] .order-table .order-row{border-bottom:1px solid var(--dashboard-divider)}
+.lillian-dashboard[data-theme=light] .order-table .order-row:last-child{border-bottom:0}
+.lillian-dashboard[data-theme=dark] .calendar-connected-outline path{stroke-width:1px}
+
+/* Text fields use a quiet grey outline instead of the raised surface shadow. */
+.lillian-dashboard{--text-input-border:#d4dbd6;--text-input-focus:#91a497}
+.lillian-dashboard[data-theme=dark]{--text-input-border:#59685e;--text-input-focus:#9bb4a2}
+.lillian-dashboard[data-theme] :is(input[data-slot=input],textarea,.orders-search,.chat-composer){
+  border:1px solid var(--text-input-border);
+  box-shadow:none;
+}
+.lillian-dashboard[data-theme] :is(input[data-slot=input],textarea):focus-visible{
+  border-color:var(--text-input-focus);
+  outline:1px solid var(--text-input-focus);
+  outline-offset:1px;
+  box-shadow:none;
+}
+.lillian-dashboard[data-theme] :is(.orders-search,.chat-composer):focus-within{border-color:var(--text-input-focus)}
+.lillian-dashboard[data-theme] :is(.orders-search,.chat-composer) input[data-slot=input]{
+  border:0;
+  background:transparent;
+  outline:none;
+  box-shadow:none;
+}
+.lillian-dashboard[data-theme] .navbar-search-mode input[data-slot=input]{height:65%;border-radius:999px;padding:0 .8cqw}

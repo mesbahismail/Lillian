@@ -1,0 +1,72 @@
+.orders-page{gap:1.35cqw}
+.orders-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.35cqw;flex-shrink:0}
+.lillian-dashboard [data-slot=card].glass.orders-metric{gap:0;min-width:0;padding:0 0 min(1.3cqw,2.08dvh);border-radius:2cqw;transition:transform 320ms ease,box-shadow 320ms ease}
+.orders-metric>strong{font-size:clamp(22px,2.2cqw,38px);font-weight:600;line-height:1.2;letter-spacing:-.045em;color:#303732;margin:.4cqw var(--widget-header-inset) .35cqw;font-variant-numeric:tabular-nums}
+.orders-metric>span{margin:0 var(--widget-header-inset);font-size:clamp(9px,.65cqw,12px);color:#8e9d92}
+.lillian-dashboard [data-slot=card].glass.orders-list-widget{flex:1;min-height:0;gap:0;padding:0;border-radius:2cqw;overflow:hidden}
+.orders-result-count{font-size:clamp(9px,.65cqw,12px);color:#94a398}
+.orders-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:.5cqw var(--widget-header-inset) 1cqw;flex-shrink:0}
+.orders-controls .page-filter-tabs{margin:0;gap:6px}
+.orders-controls .page-filter-tabs button{height:30px;font-size:10px;padding:0 13px;transition:color 200ms,background 200ms}
+.lillian-dashboard .orders-controls .page-filter-tabs button[aria-pressed=true]{background:#e8f2e4;color:#57874d}
+.orders-search{display:flex;align-items:center;gap:8px;width:25%;min-width:140px;height:34px;border-radius:30px;padding:0 10px;color:#9aa79e}
+.orders-search>svg{width:14px;height:14px;flex-shrink:0}
+.lillian-dashboard .orders-search input{min-width:0;width:100%;height:100%;padding:0;border:0;box-shadow:none;background:transparent;font-size:10px;color:inherit;outline:none;border-radius:0}
+.orders-search button{flex-shrink:0;color:inherit}
+.orders-table-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;margin:0 var(--widget-header-inset);scrollbar-width:thin;outline-offset:-2px}
+.orders-data-table{border-collapse:separate;border-spacing:0;width:100%;text-align:left;font-size:clamp(10px,.75cqw,13px);color:#7e8e83;white-space:nowrap}
+.orders-data-table th{position:sticky;top:0;z-index:1;background:#f5f8f6;border-bottom:1px solid var(--dashboard-divider);padding:0 12px;font-weight:500;font-size:10px}
+.orders-data-table th:first-child,.orders-data-table td:first-child{padding-left:0}
+.orders-data-table th:last-child,.orders-data-table td:last-child{text-align:right;padding-right:0}
+.orders-data-table th button{height:36px;padding:0;gap:7px;font-size:inherit;font-weight:500;color:#94a298;background:transparent}
+.orders-data-table th:last-child button{margin-left:auto}
+.orders-data-table th button svg{width:11px;height:11px;opacity:.6}
+.orders-data-table th[aria-sort=ascending] button,.orders-data-table th[aria-sort=descending] button{color:#548554}
+.orders-data-table td{padding:clamp(10px,1.2dvh,15px) 12px;border-bottom:1px solid var(--dashboard-divider);transition:background 180ms}
+.orders-data-table tbody tr:last-child td{border-bottom:0}
+.orders-data-table tbody tr:hover td{background:#c5ddc315}
+.orders-id{color:#4a5f50;font-weight:500}
+.orders-customer{display:block;color:#526a59;font-weight:500}
+.orders-email,.orders-refund{display:block;font-size:9px;color:#a0ada4;margin-top:3px;font-weight:400}
+.orders-value{font-variant-numeric:tabular-nums;color:#455e4d;font-weight:600}
+.orders-status{display:inline-flex;align-items:center;gap:6px;border-radius:25px;padding:4px 10px;font-size:9px;color:#6b9068}
+.orders-status i{height:5px;width:5px;border-radius:50%;background:#79ac62}
+.orders-status.refunded{color:#a19462}.orders-status.refunded i{background:#b8b64b}
+.orders-data-table .orders-empty{text-align:center;padding:40px 12px;color:#9aaa9e}
+.orders-table-footer{display:flex;align-items:center;gap:20px;margin:0 var(--widget-header-inset);padding:12px 0;border-top:1px solid var(--dashboard-divider);flex-shrink:0;color:#91a095;font-size:10px}
+.orders-table-footer>span{margin-right:auto}
+.orders-table-footer label{display:flex;align-items:center;gap:8px}
+.orders-table-footer select{font-size:10px;padding:3px 8px;border-radius:20px;cursor:pointer}
+.orders-pagination{display:flex;align-items:center;gap:10px;font-variant-numeric:tabular-nums}
+.orders-pagination button{border-radius:50%;color:#90a194;width:28px;height:28px}
+.orders-pagination button svg{width:15px;height:15px}
+.orders-demo-note{margin:-.6cqw 0 0;padding:0 2px;font-size:9px;color:#93a498;flex-shrink:0}
+.lillian-dashboard[data-theme=dark] .orders-metric>strong{color:#d9e8dc}
+.lillian-dashboard[data-theme=dark] .orders-data-table th{background:#2b4131}
+.lillian-dashboard[data-theme=dark] :is(.orders-id,.orders-customer,.orders-value){color:#c1d6c6}
+.lillian-dashboard[data-theme=dark] .orders-status{background:#314c37;border:1px solid var(--dashboard-border);color:#b3cfae}
+.lillian-dashboard[data-theme=dark] .orders-controls .page-filter-tabs button[aria-pressed=true]{background:#3a513c;color:#c1d8bf}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.orders-metric:hover{transform:scale(1.02)}}
+@media(max-width:760px){
+  .orders-page{gap:10px}
+  .orders-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .lillian-dashboard [data-slot=card].glass.orders-metric{border-radius:18px;padding-bottom:10px}
+  .orders-metric>strong{font-size:clamp(19px,3.2dvh,27px);margin:0 var(--widget-header-inset) 3px}
+  .orders-metric>span{font-size:8px}
+  .lillian-dashboard [data-slot=card].glass.orders-list-widget{border-radius:18px}
+  .orders-controls{gap:8px;flex-wrap:wrap;padding:7px var(--widget-header-inset) 10px}
+  .orders-controls .page-filter-tabs{gap:4px}
+  .orders-controls .page-filter-tabs button{height:26px;padding:0 9px;font-size:9px}
+  .orders-search{flex:1;width:auto;min-width:100px;height:28px;padding:0 8px;gap:5px}
+  .orders-search>svg{width:12px;height:12px}
+  .lillian-dashboard .orders-search input{font-size:9px}
+  .orders-data-table{font-size:10px;min-width:580px}
+  .orders-data-table td{padding:10px}
+  .orders-table-footer{gap:8px;padding:8px 0;font-size:8px}
+  .orders-table-footer label{gap:4px}
+  .orders-table-footer select{font-size:9px;padding:2px 4px}
+  .orders-pagination{gap:6px}
+  .orders-pagination button{width:24px;height:24px}
+  .orders-demo-note{font-size:7px;line-height:1.4;margin:0}
+}
+@media(max-height:500px) and (min-width:761px){.orders-metric>strong{font-size:22px}.orders-metric>span{font-size:8px}.orders-controls{padding-top:2px;padding-bottom:5px}.orders-controls .page-filter-tabs button{height:24px}.orders-search{height:26px}.orders-table-footer{padding:5px 0}.orders-demo-note{font-size:7px}}
