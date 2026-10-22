@@ -139,7 +139,7 @@ export default function LillianDashboard() {
     <div className="lillian-dashboard" data-theme={theme}>
       <header ref={toolbar} className={`glass top-toolbar ${profileOpen ? 'profile-open' : ''} ${notificationsOpen ? 'notifications-open' : ''} ${searchOpen ? 'search-open' : ''}`} onKeyDown={event => { if (event.key === 'Escape' && (profileOpen || notificationsOpen)) { event.stopPropagation(); if (profileOpen) profileTrigger.current?.focus(); else notificationsTrigger.current?.focus(); setProfileOpen(false); setNotificationsOpen(false) } }}>
         <div className="toolbar-main-row" inert={searchOpen} aria-hidden={searchOpen}>
-        <div className="nav-brand"><div className="lily-logo"><LilyLogo /></div><span className="brand-separator" /><span className="nav-page-name">{active}</span></div>
+        <div className="nav-brand"><div className="lily-logo"><LilyLogo /></div><span className="nav-page-name">{active}</span></div>
         <Button ref={searchTrigger} variant="ghost" className="search-launch white-layer" aria-label="Open workspace search" aria-expanded={searchOpen} aria-controls="navbar-search" onClick={() => { setSearchOpen(true); setProfileOpen(false); setNotificationsOpen(false) }}><Search /><span>Search</span></Button>
         <div className="toolbar-actions"><div className="toolbar-tools">
           <Button ref={notificationsTrigger} variant="ghost" size="icon" className="notification-trigger" aria-label={notificationsRead ? 'Notifications' : 'Notifications, 2 unread'} aria-expanded={notificationsOpen} aria-controls="navbar-activity" onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false) }}><Bell />{!notificationsRead && <span className="unread-dot" />}</Button>

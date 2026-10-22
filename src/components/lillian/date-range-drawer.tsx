@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react'
 import { DayPicker, type DateRange } from 'react-day-picker'
-import { CalendarCheck, Check, ChevronDown } from 'lucide-react'
+import { Calendar, Check, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { customPeriod, formatPeriod, periodPresets, presetPeriod, reportingToday, type ReportingPeriod } from './reporting-period'
 import './date-range-drawer.css'
@@ -73,7 +73,7 @@ export function DateRangeDrawer({ value, onChange, theme }: Props) {
     <Button ref={trigger} variant="ghost" className="date-selector" aria-expanded={open} aria-controls={regionId} aria-label={`Reporting period: ${value.label}, ${formatPeriod(value, true)}`} onClick={() => {
       if (!open) { setDraft({ from: value.from, to: value.to }); setDraftLabel(value.label); setMonth(new Date(value.from.getFullYear(), value.from.getMonth() - 1, 1)) }
       setOpen(!open)
-    }}><CalendarCheck /><span className="date-trigger-copy"><strong>{value.label}</strong><span>{formatPeriod(value)}</span></span><ChevronDown className="calendar-bookmark-chevron" /></Button>
+    }}><Calendar /><span className="date-trigger-copy"><strong>{value.label}</strong><span>{formatPeriod(value)}</span></span><ChevronDown className="calendar-bookmark-chevron" /></Button>
     <div ref={expansion} className="calendar-expansion" inert={!open} aria-hidden={!open}>
       <section id={regionId} className="calendar-expansion-inner" aria-label="Select reporting period">
         <div className="calendar-bookmark-scroll">
