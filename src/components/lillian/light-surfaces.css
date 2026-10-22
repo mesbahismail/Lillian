@@ -163,26 +163,38 @@
   height:42px;
   min-width:112px;
   margin:0;
-  padding:0;
+  padding:0 32px 0 18px;
   border:0;
   border-radius:12px 0 0 0;
-  background:var(--tab-fill);
+  isolation:isolate;
+  overflow:hidden;
+  background:transparent;
   color:var(--control-ink);
   font-size:13px;
   font-weight:500;
   box-shadow:none;
-  clip-path:polygon(0 0,calc(100% - 20px) 0,100% 100%,0 100%);
+  clip-path:none;
 }
-.lillian-dashboard[data-theme] .classic-tabs button[aria-selected=true]{font-weight:600;background:var(--tab-selected)}
-.lillian-dashboard .classic-tabs button:hover:not([aria-selected=true]){background:var(--control-hover)}
+.lillian-dashboard .classic-tabs button::before{
+  content:'';
+  position:absolute;
+  inset:0 0 0 -20px;
+  z-index:-1;
+  background:var(--settings-tab-fill,var(--tab-fill));
+  border-radius:12px 12px 0 0;
+  transform:skewX(25deg);
+  transform-origin:bottom right;
+}
+.lillian-dashboard[data-theme] .classic-tabs button[aria-selected=true]{font-weight:600;background:transparent;--settings-tab-fill:var(--tab-selected)}
+.lillian-dashboard .classic-tabs button:hover:not([aria-selected=true]){--settings-tab-fill:var(--control-hover)}
 .lillian-dashboard .classic-tabs button:focus-visible{outline:none}
 .lillian-dashboard .classic-tabs button:focus-visible span{outline:2px solid var(--text-input-focus);outline-offset:4px;border-radius:4px}
 .lillian-dashboard[data-theme] .classic-settings-form{
   background:var(--tab-selected);
   border:0;
+  border-top-left-radius:0;
   box-shadow:none;
 }
-.lillian-dashboard .settings-tabs-layout:has(.classic-tabs button:first-child[aria-selected=true]) .classic-settings-form{border-top-left-radius:0}
 /* Center the indicator using the actual button height at every viewport. */
 .lillian-dashboard .rail-button.is-active::after{top:50%;transform:translateY(-50%);height:60%;max-height:35px}
 .lillian-dashboard .rail-button:hover svg,.lillian-dashboard .rail-button:focus-visible svg{transform:scale(1.08)}
@@ -198,6 +210,52 @@
 .lillian-dashboard .chat-composer{border-radius:999px}
 @media(max-width:760px){
   .lillian-dashboard{--page-radius:18px;--control-height:34px;--control-font:11px}
-  .lillian-dashboard[data-theme] .classic-tabs button{min-width:100px;height:38px;font-size:12px;padding:0}
+  .lillian-dashboard[data-theme] .classic-tabs button{min-width:100px;height:38px;font-size:12px;padding:0 28px 0 14px}
   .lillian-dashboard[data-theme] .workspace-page-heading>.workspace-action{width:var(--control-height);padding:0;font-size:0;gap:0}
+}
+
+/* The same white lily on an opaque green gradient in navigation and chat. */
+.lillian-dashboard[data-theme] :is(.lily-logo,.chat-lily){
+  background:var(--action-fill);
+  color:#fff;
+  border:0;
+  border-radius:50%;
+  box-shadow:none;
+}
+
+/* Roomier navigation type and a single outlined search control. */
+.lillian-dashboard[data-theme] :is(.nav-page-name,.date-trigger-copy){font-size:calc(var(--widget-title-size)*1.14)}
+@media(min-width:761px){
+  .lillian-dashboard .toolbar-main-row{grid-template-columns:minmax(0,1fr) 22cqw minmax(0,1fr)}
+}
+.lillian-dashboard[data-theme] .search-launch{
+  height:clamp(32px,min(2.7cqw,4.32dvh),44px);
+  padding-inline:1cqw;
+  font-size:clamp(11px,.95cqw,15px);
+  background:var(--control-fill);
+  border:1px solid var(--text-input-border);
+  box-shadow:none;
+  transition:transform 180ms ease,background 180ms ease,border-color 180ms ease;
+}
+.lillian-dashboard[data-theme] .search-launch:focus-visible{
+  outline:none;
+  border-color:var(--text-input-focus);
+  border-width:2px;
+  box-shadow:none;
+}
+.lillian-dashboard[data-theme] .navbar-search-mode input[data-slot=input]{font-size:clamp(13px,1.1cqw,17px)}
+.lillian-dashboard[data-theme] .navbar-search-mode input[data-slot=input]:focus-visible{
+  outline:none;
+  box-shadow:none;
+  border-color:var(--text-input-focus);
+}
+@media(hover:hover) and (pointer:fine){
+  .lillian-dashboard .search-launch:hover{transform:scale(1.035);background:var(--control-hover);border-color:var(--text-input-focus)}
+}
+@media(max-width:760px){
+  .lillian-dashboard[data-theme] .search-launch{height:32px;padding-inline:8px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .lillian-dashboard .search-launch{transition:none}
+  .lillian-dashboard .search-launch:hover{transform:none}
 }

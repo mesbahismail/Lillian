@@ -38,11 +38,13 @@ type ChatMessage = { role: 'assistant' | 'user'; text: string }
 
 function LilyLogo() {
   return <svg viewBox="0 0 48 48" fill="none" role="img" aria-label="Lily flower logo">
-    <path d="M24 33C13 28 15 13 24 5c9 8 11 23 0 28Z" fill="#e5f0df" stroke="currentColor" strokeWidth="1.7" />
-    <path d="M24 33C11 36 5 24 5 14c13 0 22 7 19 19Z" fill="#f5faf0" stroke="currentColor" strokeWidth="1.7" />
-    <path d="M24 33c13 3 19-9 19-19-13 0-22 7-19 19Z" fill="#f5faf0" stroke="currentColor" strokeWidth="1.7" />
-    <path d="M24 43V25m0 15c-7 1-11-2-13-6 6-1 10 1 13 6Zm0-4c5 1 9-1 12-5-6-1-10 1-12 5Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="m24 30-5-9m5 9 5-9" stroke="#b19e43" strokeWidth="1.7" strokeLinecap="round" />
+    <g fill="currentColor" fillRule="evenodd" clipRule="evenodd">
+      <path d="M24 31C13 26 15 12 24 4c9 8 11 22 0 27Zm0-21c-4 6-5 13-1 18-1-7 0-12 1-18Z" />
+      <path d="M23 33C10 35 5 24 4 13c10 0 20 7 19 20ZM9 18c2 8 6 12 12 13-6-4-8-8-12-13Z" />
+      <path d="M25 33c13 2 18-9 19-20-10 0-20 7-19 20Zm14-15c-2 8-6 12-12 13 6-4 8-8 12-13Z" />
+      <path d="M23 39c-6 1-11-2-13-7 6 0 10 2 13 7Zm2-3c5 1 10-2 12-6-6 0-9 2-12 6Z" />
+    </g>
+    <path d="M24 43V30" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
   </svg>
 }
 
@@ -140,7 +142,7 @@ export default function LillianDashboard() {
       <header ref={toolbar} className={`glass top-toolbar ${profileOpen ? 'profile-open' : ''} ${notificationsOpen ? 'notifications-open' : ''} ${searchOpen ? 'search-open' : ''}`} onKeyDown={event => { if (event.key === 'Escape' && (profileOpen || notificationsOpen)) { event.stopPropagation(); if (profileOpen) profileTrigger.current?.focus(); else notificationsTrigger.current?.focus(); setProfileOpen(false); setNotificationsOpen(false) } }}>
         <div className="toolbar-main-row" inert={searchOpen} aria-hidden={searchOpen}>
         <div className="nav-brand"><div className="lily-logo"><LilyLogo /></div><span className="nav-page-name">{active}</span></div>
-        <Button ref={searchTrigger} variant="ghost" className="search-launch white-layer" aria-label="Open workspace search" aria-expanded={searchOpen} aria-controls="navbar-search" onClick={() => { setSearchOpen(true); setProfileOpen(false); setNotificationsOpen(false) }}><Search /><span>Search</span></Button>
+        <Button ref={searchTrigger} variant="ghost" className="search-launch" aria-label="Open workspace search" aria-expanded={searchOpen} aria-controls="navbar-search" onClick={() => { setSearchOpen(true); setProfileOpen(false); setNotificationsOpen(false) }}><Search /><span>Search</span></Button>
         <div className="toolbar-actions"><div className="toolbar-tools">
           <Button ref={notificationsTrigger} variant="ghost" size="icon" className="notification-trigger" aria-label={notificationsRead ? 'Notifications' : 'Notifications, 2 unread'} aria-expanded={notificationsOpen} aria-controls="navbar-activity" onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false) }}><Bell />{!notificationsRead && <span className="unread-dot" />}</Button>
           <span className="toolbar-divider" />
