@@ -62,7 +62,7 @@
 
 /* Text fields use a quiet grey outline instead of the raised surface shadow. */
 .lillian-dashboard{--text-input-border:#d4dbd6;--text-input-focus:#91a497}
-.lillian-dashboard[data-theme=dark]{--text-input-border:#59685e;--text-input-focus:#9bb4a2}
+.lillian-dashboard[data-theme=dark]{--text-input-border:#646464;--text-input-focus:#adadad}
 .lillian-dashboard[data-theme] :is(input[data-slot=input],textarea,.orders-search,.chat-composer){
   border:1px solid var(--text-input-border);
   box-shadow:none;
@@ -91,16 +91,16 @@
   --control-fill:rgb(255 255 255 / 80%);
   --control-ink:#506b58;
   --control-hover:#e8f2e4;
-  --action-fill:linear-gradient(110deg,#258d43,#75b947);
+  --action-fill:var(--brand-gradient);
   --tab-fill:#f3f7f2;
   --tab-selected:#fff;
 }
 .lillian-dashboard[data-theme=dark]{
-  --control-fill:#2d4333;
-  --control-ink:#c8ddcd;
-  --control-hover:#3a513e;
-  --tab-fill:#354b3b;
-  --tab-selected:#435f49;
+  --control-fill:#3d3d3d;
+  --control-ink:#d7d7d7;
+  --control-hover:#4b4b4b;
+  --tab-fill:#454545;
+  --tab-selected:#575757;
 }
 .lillian-dashboard[data-theme] :is(.classic-settings-form,.campaign-create){
   border-radius:var(--page-radius);
@@ -128,7 +128,8 @@
   box-shadow:0 4px 12px #3c8e4324;
 }
 .lillian-dashboard[data-theme] :is(.workspace-action,.apply-period,.profile-tools-panel form>button,.detail-panel form>button,.demo-signed-out button,.chat-composer>button):hover:not(:disabled){
-  background:linear-gradient(110deg,#2c984a,#80c252);
+  background:var(--brand-gradient);
+  filter:brightness(1.04);
 }
 .lillian-dashboard[data-theme] :is(.workspace-action,.settings-footer button,.team-invite button,.campaign-create>button,.calendar-bookmark-footer button) svg{width:15px;height:15px}
 .lillian-dashboard[data-theme] :is(.workspace-page input:not([type=checkbox]),.workspace-page select,.profile-tools-panel input,.detail-panel input){
@@ -214,10 +215,10 @@
   .lillian-dashboard[data-theme] .workspace-page-heading>.workspace-action{width:var(--control-height);padding:0;font-size:0;gap:0}
 }
 
-/* The same white lily on an opaque green gradient in navigation and chat. */
+/* Preserve the supplied logo’s gradient and transparent cutouts. */
 .lillian-dashboard[data-theme] :is(.lily-logo,.chat-lily){
-  background:var(--action-fill);
-  color:#fff;
+  background:transparent;
+  padding:0;
   border:0;
   border-radius:50%;
   box-shadow:none;
@@ -259,3 +260,66 @@
   .lillian-dashboard .search-launch{transition:none}
   .lillian-dashboard .search-launch:hover{transform:none}
 }
+
+/* Brand palette sampled from the supplied Lillian SVG. */
+.lillian-dashboard,.lillian-menu{
+  --brand-green:#41df88;
+  --brand-teal:#00ae9f;
+  --brand-gradient:linear-gradient(247deg,var(--brand-green) 0%,var(--brand-teal) 76.9231%);
+  --brand-ink:#07675e;
+  --brand-on-accent:#fff;
+  --brand-soft:#e0f7ee;
+  --chart-1:#41df88;
+  --chart-2:#30d38e;
+  --chart-3:#1dc495;
+  --chart-4:#00ae9f;
+  --chart-5:#087f7b;
+}
+.lillian-dashboard[data-theme=light]{
+  --control-ink:#315e55;
+  --control-hover:#e0f7ee;
+  --tab-fill:#edf9f4;
+  --text-input-focus:var(--brand-teal);
+  background:radial-gradient(ellipse at 90% 0%,#41df8826,transparent 48%),radial-gradient(ellipse at 0% 100%,#00ae9f26,transparent 52%),#eaf5f1;
+}
+.lillian-dashboard[data-theme=dark]{
+  --brand-ink:#c7c7c7;
+  --brand-soft:#3d3d3d;
+  --control-fill:#363636;
+  --control-ink:#dfdfdf;
+  --control-hover:#494949;
+  --tab-fill:#363636;
+  --tab-selected:#414141;
+  --text-input-focus:var(--brand-green);
+  background:radial-gradient(ellipse at 90% 0%,#b7b7b718,transparent 48%),radial-gradient(ellipse at 0% 100%,#88888824,transparent 52%),#232323;
+}
+.lillian-dashboard[data-theme] :is(.workspace-action,.apply-period,.profile-tools-panel form>button,.detail-panel form>button,.demo-signed-out button,.chat-composer>button,.support-tab,.settings-footer button[type=submit],.campaign-create>button[type=submit],.team-invite button){
+  background:var(--brand-gradient);
+  color:var(--brand-on-accent);
+  border-color:#00ae9f40;
+  box-shadow:0 4px 12px #00ae9f24;
+}
+.lillian-dashboard[data-theme] :is(.workspace-action,.apply-period,.profile-tools-panel form>button,.detail-panel form>button,.demo-signed-out button,.chat-composer>button,.support-tab,.settings-footer button[type=submit],.campaign-create>button[type=submit],.team-invite button):hover:not(:disabled){
+  background:var(--brand-gradient);
+  filter:brightness(1.04);
+}
+.lillian-dashboard[data-theme] :is(.rail-button.is-active,.rail-button:hover,.rail-button:focus-visible,.rail-button:focus-visible svg,.subscriptions>span,.summary-description>span,.chat-author,.back-to-overview){color:var(--brand-ink)}
+.lillian-dashboard[data-theme] :is(.rail-button.is-active::after,.unread-dot,.summary-dot-button[aria-pressed=true] span,.inbox-thread i,.minimal-funnel .step-track>span){background:var(--brand-gradient)}
+.lillian-dashboard[data-theme] :is(.conversion-badge,.page-filter-tabs button[aria-pressed=true],.date-preset[aria-pressed=true],.inbox-thread.is-selected,.conversation-bubble.from-you,.chat-user){background:var(--brand-soft);color:var(--brand-ink)}
+.lillian-dashboard[data-theme] .classic-tabs button[aria-selected=true]{color:var(--brand-ink)}
+.lillian-dashboard[data-theme] .calendar-bookmark{
+  --rdp-accent-color:var(--brand-teal);
+  --rdp-accent-background-color:var(--brand-soft);
+  --rdp-range_middle-background-color:var(--brand-soft);
+  --rdp-range_middle-color:var(--brand-ink);
+  --rdp-range_start-color:var(--brand-on-accent);
+  --rdp-range_end-color:var(--brand-on-accent);
+}
+.lillian-dashboard[data-theme] .rdp-selected .rdp-day_button{background:var(--brand-gradient);color:var(--brand-on-accent);border-color:var(--brand-teal)}
+.lillian-dashboard[data-theme] input[type=checkbox]{accent-color:var(--brand-teal)}
+.lillian-dashboard[data-theme] .chart-hover-guide{stroke:var(--brand-teal)}
+.lillian-dashboard[data-theme] .analytics-horizontal-track>span{background:var(--brand-gradient)}
+.lillian-menu [data-slot=dropdown-menu-item]:is(:focus,[data-highlighted]){background:var(--brand-soft);color:var(--brand-ink)}
+.lillian-menu[data-theme=dark]{--brand-soft:#3d3d3d;--brand-ink:#c7c7c7}
+
+.lillian-dashboard[data-theme] .source-chip strong{color:var(--brand-ink)}

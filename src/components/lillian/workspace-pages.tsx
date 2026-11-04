@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { ArrowUpRight, Check, Mail, Pause, Play, Plus, Send } from 'lucide-react'
+import { ArrowUpRight, Check, Pause, Play, Plus, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import type { DetailData, DetailView } from './widget-details'
 import { AnalyticsCharts } from './analytics-charts'
+import { CreationModal } from './creation-modal'
 import './workspace-pages.css'
 
 export const workspaceRoutes = { Campaigns: '#/campaigns', Analytics: '#/analytics', Inbox: '#/inbox', Settings: '#/settings' } as const
@@ -39,10 +40,19 @@ function CampaignsPage({ query }: { query: string }) {
   const [creating, setCreating] = useState(false)
   const [name, setName] = useState('')
   const [channel, setChannel] = useState('Email')
+  const addButton = useRef<HTMLButtonElement>(null)
   const visible = saved.campaigns.filter(item => (filter === 'All' || item.status === filter) && `${item.name} ${item.channel}`.toLowerCase().includes(query.toLowerCase()))
-  return <PageFrame title="Campaigns" actions={<Button className="workspace-action" onClick={() => setCreating(!creating)}><Plus />New campaign</Button>}>
-    {creating && <form className="glass campaign-create" onSubmit={event => { event.preventDefault(); if (!name.trim()) return; setSaved({ campaigns: [...saved.campaigns, { id: Date.now(), name: name.trim(), channel, status: 'Draft', visits: 0, conversions: 0 }] }); setName(''); setCreating(false); setFilter('All') }}><label>Campaign name<Input autoFocus required value={name} onChange={event => setName(event.target.value)} placeholder="Name your campaign" maxLength={80} /></label><label>Channel<select value={channel} onChange={event => setChannel(event.target.value)}><option>Email</option><option>Meta Ads</option><option>Social</option></select></label><Button className="workspace-action" type="submit">Create draft</Button><Button variant="ghost" type="button" onClick={() => setCreating(false)}>Cancel</Button></form>}
-    <Card className="glass workspace-surface"><div className="page-filter-tabs" role="group" aria-label="Campaign status">{['All', 'Active', 'Paused', 'Draft'].map(status => <Button variant="ghost" key={status} aria-pressed={filter === status} onClick={() => setFilter(status)}>{status}</Button>)}</div><div className="page-table-scroll"><table className="page-table"><thead><tr><th>Campaign</th><th>Channel</th><th>Status</th><th>Visits</th><th>Conversions</th><th><span className="visually-hidden">Actions</span></th></tr></thead><tbody>{visible.map(item => <tr key={item.id}><td>{item.name}</td><td>{item.channel}</td><td><span className="page-status">{item.status}</span></td><td>{item.visits}</td><td>{item.conversions}</td><td><Button variant="ghost" size="icon" aria-label={`${item.status === 'Active' ? 'Pause' : 'Start'} ${item.name}`} onClick={() => setSaved({ campaigns: saved.campaigns.map(campaign => campaign.id === item.id ? { ...campaign, status: campaign.status === 'Active' ? 'Paused' : 'Active' } : campaign) })}>{item.status === 'Active' ? <Pause /> : <Play />}</Button></td></tr>)}</tbody></table>{!visible.length && <p className="workspace-empty">No campaigns match this view.</p>}</div></Card>
+  return <PageFrame title="Campaigns">
+    {creating && <CreationModal title="New campaign" submitLabel="Create draft" returnFocusRef={addButton} onClose={() => setCreating(false)} disabled={!name.trim()} onSubmit={event => {
+      event.preventDefault()
+      if (!name.trim()) return
+      setSaved({ campaigns: [...saved.campaigns, { id: Date.now(), name: name.trim(), channel, status: 'Draft', visits: 0, conversions: 0 }] })
+      setName(''); setCreating(false); setFilter('All')
+    }}>
+      <label>Campaign name<Input autoFocus required value={name} onChange={event => setName(event.target.value)} placeholder="Name your campaign" maxLength={80} /></label>
+      <label>Channel<select value={channel} onChange={event => setChannel(event.target.value)}><option>Email</option><option>Meta Ads</option><option>Social</option></select></label>
+    </CreationModal>}
+    <div className="settings-tabs-layout"><div className="classic-tabs filter-tabs" role="group" aria-label="Campaign status">{['All', 'Active', 'Paused', 'Draft'].map(status => <Button variant="ghost" key={status} aria-pressed={filter === status} onClick={() => setFilter(status)}><span>{status}</span></Button>)}</div><Card className="glass workspace-surface tabbed-panel campaign-surface"><div className="page-table-scroll"><table className="page-table"><thead><tr><th>Campaign</th><th>Channel</th><th>Status</th><th>Visits</th><th>Conversions</th><th><span className="visually-hidden">Actions</span></th></tr></thead><tbody>{visible.map(item => <tr key={item.id}><td>{item.name}</td><td>{item.channel}</td><td><span className="page-status">{item.status}</span></td><td>{item.visits}</td><td>{item.conversions}</td><td><Button variant="ghost" size="icon" aria-label={`${item.status === 'Active' ? 'Pause' : 'Start'} ${item.name}`} onClick={() => setSaved({ campaigns: saved.campaigns.map(campaign => campaign.id === item.id ? { ...campaign, status: campaign.status === 'Active' ? 'Paused' : 'Active' } : campaign) })}>{item.status === 'Active' ? <Pause /> : <Play />}</Button></td></tr>)}</tbody></table>{!visible.length && <p className="workspace-empty">No campaigns match this view.</p>}</div><footer className="campaign-footer"><Button ref={addButton} className="workspace-action campaign-add-button" size="icon" aria-label="New campaign" title="New campaign" aria-expanded={creating} aria-haspopup="dialog" onClick={() => { setName(''); setChannel('Email'); setCreating(true) }}><Plus /></Button></footer></Card></div>
   </PageFrame>
 }
 function AnalyticsPage({ data, onDetails }: { data: Record<DetailView, DetailData>; onDetails: (view: DetailView) => void }) {
@@ -60,13 +70,47 @@ const initialThreads: Thread[] = [
   { id: 2, name: 'Lana Steiner', subject: 'Thanks for the update', unread: true, messages: [{ from: 'customer', text: 'The new dashboard looks great. Thank you!' }] },
   { id: 3, name: 'Phoenix Baker', subject: 'Annual plan details', unread: false, messages: [{ from: 'customer', text: 'Could you share what is included in the annual plan?' }] },
 ]
-function InboxPage({ query }: { query: string }) {
+function InboxPage({ query, onQueryChange }: { query: string; onQueryChange: (value: string) => void }) {
   const [saved, setSaved] = useSaved('lillian-inbox', { threads: initialThreads })
   const [selected, setSelected] = useState(1)
   const [reply, setReply] = useState('')
-  const thread = saved.threads.find(item => item.id === selected)!
-  const visible = saved.threads.filter(item => `${item.name} ${item.subject}`.toLowerCase().includes(query.toLowerCase()))
-  return <PageFrame title="Inbox"><Card className="glass inbox-workspace"><div className="inbox-thread-list" aria-label="Conversations">{visible.map(item => <button key={item.id} className={`inbox-thread ${selected === item.id ? 'is-selected' : ''}`} aria-pressed={selected === item.id} onClick={() => { setSelected(item.id); setReply(''); setSaved({ threads: saved.threads.map(current => current.id === item.id ? { ...current, unread: false } : current) }) }}><span className="thread-avatar">{item.name.split(' ').map(part => part[0]).join('')}</span><span><strong>{item.name}</strong><small>{item.subject}</small></span>{item.unread && <i aria-label="Unread" />}</button>)}{!visible.length && <p className="workspace-empty">No matching conversations.</p>}</div><section className="inbox-conversation" aria-label={`Conversation with ${thread.name}`}><div className="conversation-heading"><Mail /><div><h2>{thread.name}</h2><p>{thread.subject}</p></div></div><div className="conversation-messages" role="log" aria-live="polite">{thread.messages.map((item, index) => <div className={`conversation-bubble ${item.from === 'you' ? 'from-you' : ''}`} key={index}><span>{item.from === 'you' ? 'You' : thread.name}</span><p>{item.text}</p></div>)}</div><form className="inbox-composer" onSubmit={event => { event.preventDefault(); if (!reply.trim()) return; setSaved({ threads: saved.threads.map(item => item.id === selected ? { ...item, unread: false, messages: [...item.messages, { from: 'you', text: reply.trim() }] } : item) }); setReply('') }}><Input aria-label="Reply to conversation" placeholder="Write a reply…" value={reply} onChange={event => setReply(event.target.value)} maxLength={2000} /><Button type="submit" className="workspace-action" disabled={!reply.trim()}><Send /><span>Send demo reply</span></Button></form></section></Card></PageFrame>
+  const [creating, setCreating] = useState(false)
+  const [contact, setContact] = useState('')
+  const [subject, setSubject] = useState('')
+  const addButton = useRef<HTMLButtonElement>(null)
+  const thread = saved.threads.find(item => item.id === selected) ?? saved.threads[0]
+  const visible = saved.threads.filter(item => `${item.name} ${item.subject} ${item.messages.map(message => message.text).join(' ')}`.toLowerCase().includes(query.toLowerCase()))
+  const cancelCreate = () => setCreating(false)
+  return <PageFrame title="Inbox"><Card className="glass inbox-workspace">
+    <aside className="inbox-sidebar" aria-label="Conversations">
+      <div className="inbox-thread-list">
+        {visible.map(item => <button key={item.id} className={`inbox-thread ${selected === item.id ? 'is-selected' : ''}`} aria-pressed={selected === item.id} onClick={() => {
+          setSelected(item.id); setReply(''); setCreating(false)
+          setSaved({ threads: saved.threads.map(current => current.id === item.id ? { ...current, unread: false } : current) })
+        }}><span className="thread-avatar">{item.name.split(' ').map(part => part[0]).join('')}</span><span><strong>{item.name}</strong><small>{item.subject}</small></span>{item.unread && <i aria-label="Unread" />}</button>)}
+        {!visible.length && <p className="workspace-empty">No chats match your search.</p>}
+      </div>
+      <footer className="inbox-sidebar-footer"><Button ref={addButton} className="workspace-action campaign-add-button" size="icon" aria-label="New conversation" title="New conversation" aria-haspopup="dialog" aria-expanded={creating} onClick={() => { setCreating(true); setContact(''); setSubject('') }}><Plus /></Button></footer>
+    </aside>
+    {creating && <CreationModal title="New conversation" submitLabel="Create conversation" returnFocusRef={addButton} onClose={cancelCreate} disabled={!contact.trim() || !subject.trim()} onSubmit={event => {
+      event.preventDefault()
+      if (!contact.trim() || !subject.trim()) return
+      const id = Math.max(0, ...saved.threads.map(item => item.id)) + 1
+      setSaved({ threads: [...saved.threads, { id, name: contact.trim(), subject: subject.trim(), unread: false, messages: [] }] })
+      setSelected(id); setReply(''); setCreating(false); onQueryChange('')
+    }}>
+      <label>Contact name<Input autoFocus required value={contact} onChange={event => setContact(event.target.value)} placeholder="Who is this conversation with?" maxLength={80} /></label>
+      <label>Subject<Input required value={subject} onChange={event => setSubject(event.target.value)} placeholder="What is it about?" maxLength={120} /></label>
+    </CreationModal>}
+    <section className="inbox-conversation" aria-label={`Conversation with ${thread.name}`}>
+      <div className="conversation-heading"><span className="conversation-avatar" role="img" aria-label={`${thread.name} avatar placeholder`}>{thread.name.split(' ').map(part => part[0]).join('')}</span><div><h2>{thread.name}</h2><p>{thread.subject}</p></div></div>
+      <div className="conversation-messages" role="log" aria-live="polite">
+        {!thread.messages.length && <p className="workspace-empty">Start the conversation with a message.</p>}
+        {thread.messages.map((item, index) => <div className={`conversation-bubble ${item.from === 'you' ? 'from-you' : ''}`} key={index}><span>{item.from === 'you' ? 'You' : thread.name}</span><p>{item.text}</p></div>)}
+      </div>
+      <form className="inbox-composer" onSubmit={event => { event.preventDefault(); if (!reply.trim()) return; setSaved({ threads: saved.threads.map(item => item.id === selected ? { ...item, unread: false, messages: [...item.messages, { from: 'you', text: reply.trim() }] } : item) }); setReply('') }}><Input aria-label="Reply to conversation" placeholder="Write a reply…" value={reply} onChange={event => setReply(event.target.value)} maxLength={2000} /><Button type="submit" className="workspace-action" disabled={!reply.trim()}><Send /><span>Send demo reply</span></Button></form>
+    </section>
+  </Card></PageFrame>
 }
 
 const settingsTabs = ['General', 'Team', 'Billing', 'Notifications', 'Integrations', 'Security'] as const
@@ -100,9 +144,9 @@ function SettingsPage({ initialTab = 'General' }: { initialTab?: SettingsTab }) 
   </div></PageFrame>
 }
 
-export function WorkspacePages({ page, query, data, onDetails, initialSettingsTab = 'General' }: { page: WorkspacePage; query: string; data: Record<DetailView, DetailData>; onDetails: (view: DetailView) => void; initialSettingsTab?: SettingsTab }) {
+export function WorkspacePages({ page, query, onQueryChange, data, onDetails, initialSettingsTab = 'General' }: { page: WorkspacePage; query: string; onQueryChange: (value: string) => void; data: Record<DetailView, DetailData>; onDetails: (view: DetailView) => void; initialSettingsTab?: SettingsTab }) {
   if (page === 'Campaigns') return <CampaignsPage query={query} />
   if (page === 'Analytics') return <AnalyticsPage data={data} onDetails={onDetails} />
-  if (page === 'Inbox') return <InboxPage query={query} />
+  if (page === 'Inbox') return <InboxPage query={query} onQueryChange={onQueryChange} />
   return <SettingsPage initialTab={initialSettingsTab} />
 }

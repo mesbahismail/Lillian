@@ -1,0 +1,222 @@
+/* Charcoal surfaces carry just a trace of teal; the logo keeps its original colors. */
+.lillian-dashboard[data-theme=dark],.lillian-menu[data-theme=dark]{
+  --brand-ink:#8fc9bc;
+  --brand-soft:#303c39;
+  --control-fill:#303234;
+  --control-ink:#d1d4d3;
+  --control-hover:#3a3e3d;
+  --tab-fill:#2b2d2f;
+  --tab-selected:#343638;
+  --text-input-border:#515557;
+  --text-input-focus:#79b7a7;
+  --dashboard-border:#ffffff18;
+  --dashboard-divider:#ffffff12;
+  --background:#242628;
+  --foreground:#e4e6e5;
+  --muted:#343638;
+  --muted-foreground:#a9aeac;
+  --accent:#343b39;
+  --accent-foreground:#d8e4df;
+  color:#e4e6e5;
+}
+.lillian-dashboard[data-theme=dark]{background:radial-gradient(ellipse at 5% 100%,#00ae9f06,transparent 60%),#1b1d1f}
+.lillian-dashboard[data-theme=dark] .glass{background:linear-gradient(120deg,#2c2e30f5,#27292bf5);border-color:var(--dashboard-border);box-shadow:0 12px 28px -10px #0004}
+.lillian-dashboard[data-theme=dark] .calendar-connected-surface{background:#2b2d2ff5}
+/* An ancestor filter isolates the backdrop and prevents the surface blur from seeing the dashboard. */
+.lillian-dashboard[data-theme] .calendar-bookmark{filter:none}
+.lillian-dashboard[data-theme] .calendar-connected-surface{
+  -webkit-backdrop-filter:blur(28px) saturate(110%);
+  backdrop-filter:blur(28px) saturate(110%);
+}
+.lillian-dashboard[data-theme=light] .calendar-connected-surface{background:rgb(255 255 255 / 84%)}
+.lillian-dashboard[data-theme=dark] .calendar-connected-surface{background:rgb(43 45 47 / 86%)}
+.lillian-dashboard[data-theme] .calendar-connected-outline{filter:drop-shadow(0 9px 16px rgb(16 24 22 / 12%))}
+.lillian-dashboard[data-theme=dark] :is(.inset-surface,.orders-data-table th){background:#242628}
+.lillian-dashboard[data-theme=dark] :is(.classic-settings-form,.classic-tab-panel fieldset){background:var(--tab-selected)}
+.lillian-dashboard[data-theme=dark] :is(.round-button,.source-chip,.summary-arrow,.thread-avatar,.activity-item-icon,.analytics-pie-legend button,.orders-status){background:#36383a;border-color:var(--dashboard-border);color:#c1c6c3;box-shadow:none}
+.lillian-dashboard[data-theme=dark] :is(.summary-description,.summary-heading time,.orders-data-table,.page-table,.settings-field,.settings-checkbox,.date-preset,.step-summary>span,.analytics-bar-row>span){color:#aeb4b1}
+.lillian-dashboard[data-theme=dark] :is(.orders-metric>strong,.analytics-metric>strong,.nav-page-name,.card-heading h1,.card-heading h2,.ai-chat-header h2){color:#e5e7e6}
+.lillian-dashboard[data-theme=dark] .today-summary{--summary-edge:#2b2d2f;--summary-edge-clear:#2b2d2f00}
+.lillian-dashboard[data-theme=dark] .chart-grid{stroke:#aab4b0;stroke-opacity:.12}
+.lillian-dashboard[data-theme=dark] .minimal-funnel .step-track{background:#4a4e4d}
+.lillian-dashboard[data-theme=dark] .chat-composer{background:#242628}
+
+/* Gradient controls have no border seam or inset edge. */
+.lillian-dashboard[data-theme] :is(.workspace-action,.apply-period,.profile-tools-panel form>button,.detail-panel form>button,.demo-signed-out button,.chat-composer>button,.support-tab,.settings-footer button[type=submit],.campaign-create>button[type=submit],.team-invite button){
+  border:0;
+  background-clip:border-box;
+}
+
+/* Quiet activity rows stay available after marking them read. */
+.navbar-activity-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.lillian-dashboard[data-theme] .navbar-activity-list>button{
+  height:auto;min-height:62px;padding:10px 12px;gap:10px;
+  border:0;border-right:1px solid var(--dashboard-divider);border-radius:0;
+  background:transparent;box-shadow:none;white-space:normal;
+}
+.lillian-dashboard[data-theme] .navbar-activity-list>button:last-child{border-right:0}
+.lillian-dashboard[data-theme] .navbar-activity-list>button:hover{background:var(--control-hover)}
+.navbar-activity-list strong{font-size:clamp(10px,.7cqw,13px);text-align:left}
+.navbar-activity-list small{font-size:clamp(9px,.6cqw,11px);text-align:left}
+.navbar-activity-list time{font-size:clamp(8px,.55cqw,10px)}
+.navbar-activity-list.activity-read .activity-item-icon{opacity:.6}
+.lillian-dashboard .navbar-activity-list .activity-item-icon{width:28px;height:28px;background:transparent;border:0;box-shadow:none}
+.lillian-dashboard .navbar-activity-list .activity-item-icon svg{width:17px;height:17px}
+.navbar-activity-list button>svg:last-child{display:none}
+
+/* The selected preset is indicated by its gradient, without a checkmark. */
+.lillian-dashboard[data-theme] .calendar-bookmark .date-preset{font-size:clamp(12px,.9cqw,16px);padding-inline:14px}
+.lillian-dashboard[data-theme] .calendar-bookmark .date-preset[aria-pressed=true]{background:var(--brand-gradient);color:var(--brand-on-accent);border:0;box-shadow:none}
+.lillian-dashboard[data-theme] .calendar-bookmark .rdp-day_button{border:0;box-shadow:none}
+
+/* One translucent, compact search outline contains the icon, field and close button. */
+.lillian-dashboard[data-theme] .search-launch{width:80%;justify-self:center;background:#ffffff24;border:1px solid #87998b55;color:#7c8982;font-size:clamp(10px,.75cqw,13px)}
+.lillian-dashboard[data-theme=dark] .search-launch{background:#ffffff05;border-color:#ffffff25;color:#aeb5b1}
+.lillian-dashboard[data-theme] .navbar-search-mode{
+  inset:50% auto auto 50%;transform:translate(-50%,-50%);width:76%;height:65%;max-height:42px;
+  gap:9px;padding:3px 4px 3px 12px;border:1px solid #87998b66;border-radius:999px;
+  background:#ffffff18;color:#7e8a84;
+}
+.lillian-dashboard[data-theme] .navbar-search-mode:focus-within{border-color:var(--text-input-focus)}
+.lillian-dashboard[data-theme] .navbar-search-mode input[data-slot=input]{
+  width:100%;height:100%;min-width:0;padding:0;border:0;border-radius:0;outline:0;box-shadow:none;
+  background:transparent;font-size:clamp(11px,.82cqw,14px);font-weight:400;color:inherit;
+}
+.lillian-dashboard[data-theme] .navbar-search-mode>button{width:26px;height:26px;min-width:26px;min-height:26px;border:0;border-radius:50%;background:#87998b16;color:inherit}
+.lillian-dashboard[data-theme] .navbar-search-mode>button:hover{background:var(--control-hover)}
+.lillian-dashboard[data-theme] .navbar-search-mode>button svg{width:14px;height:14px}
+.lillian-dashboard[data-theme=dark] .navbar-search-mode{background:#ffffff04;border-color:#ffffff30;color:#c0c5c2}
+.lillian-dashboard[data-theme=dark] .navbar-search-mode input::placeholder{color:#969d99}
+
+/* Status tabs sit above their panel and share the Settings surface and geometry. */
+.lillian-dashboard[data-theme] .filter-tabs{margin:0;gap:0;padding:0;flex-shrink:0;border:0}
+.lillian-dashboard[data-theme] .filter-tabs button[aria-pressed=true]{--settings-tab-fill:var(--tab-selected);color:var(--brand-ink);font-weight:600;background:transparent}
+.lillian-dashboard[data-theme] .filter-tabs button:hover:not([aria-pressed=true]){--settings-tab-fill:var(--control-hover)}
+.lillian-dashboard[data-theme] .filter-tabs button[aria-pressed=true]:hover{--settings-tab-fill:var(--tab-selected)}
+.lillian-dashboard[data-theme] [data-slot=card].glass.tabbed-panel{
+  flex:1;min-height:0;background:var(--tab-selected);border:0;
+  border-radius:0 var(--page-radius) var(--page-radius) var(--page-radius);box-shadow:none;
+}
+.lillian-dashboard .tabbed-panel.orders-list-widget{padding-top:20px}
+.orders-table-scroll{padding-top:6px}
+
+/* Compact classic pagination, with totals preceding the page selectors. */
+.compact-pagination{display:flex;align-items:center;gap:3px;flex-shrink:0}
+.lillian-dashboard .compact-pagination button{
+  width:26px;height:26px;min-width:26px;min-height:0;padding:0;border:0;border-radius:7px;
+  background:transparent;color:var(--control-ink);box-shadow:none;font-size:11px;font-variant-numeric:tabular-nums;
+}
+.lillian-dashboard .compact-pagination button svg{width:14px;height:14px}
+.lillian-dashboard .compact-pagination button[aria-current=page]{background:var(--brand-soft);color:var(--brand-ink);font-weight:600}
+.lillian-dashboard .compact-pagination button:hover:not(:disabled){background:var(--control-hover)}
+.orders-table-footer{gap:14px}
+.latest-orders{--orders-table-inset:.85cqw}
+.lillian-dashboard .latest-orders .order-table{flex:1;min-height:0;height:auto;margin-inline:var(--orders-table-inset);margin-bottom:var(--orders-table-inset);overflow:auto}
+.lillian-dashboard .latest-orders .order-table>[role=rowgroup]{height:100%;display:flex;flex-direction:column}
+.lillian-dashboard .latest-orders .order-row{flex:1;min-height:24px;height:auto}
+.lillian-dashboard .orders-metric>strong{margin-bottom:4px}
+
+/* Wider funnel stems; retention labels align with their card heading. */
+.lillian-dashboard .minimal-funnel .step-track{width:clamp(14px,1.2cqw,24px);max-width:none;min-width:14px}
+.lillian-dashboard .analytics-bars{padding-inline:var(--widget-header-inset)}
+.analytics-bar-row>span{text-align:left}
+
+/* Settings controls have readable field lengths, including the standalone session selector. */
+.lillian-dashboard .settings-fields{grid-template-columns:repeat(2,minmax(0,320px));max-width:680px;gap:20px 28px}
+.lillian-dashboard .settings-field{width:100%;max-width:320px}
+.lillian-dashboard .team-invite{max-width:480px}
+.lillian-dashboard .team-invite input{max-width:320px}
+
+/* Conversation rows and messages use separators instead of individual cards. */
+.lillian-dashboard[data-theme] .inbox-thread{
+  background:transparent;border:0;border-bottom:1px solid var(--dashboard-divider);
+  border-radius:0;box-shadow:none;padding:16px 10px;
+}
+.lillian-dashboard[data-theme] .inbox-thread.is-selected{background:var(--brand-soft);border-color:transparent;border-radius:18px;box-shadow:none;color:var(--brand-ink)}
+.lillian-dashboard[data-theme] .inbox-thread:hover{background:var(--control-hover)}
+.lillian-dashboard[data-theme] :is(.conversation-bubble,.chat-bubble){
+  background:transparent;border:0;border-bottom:1px solid var(--dashboard-divider);border-radius:0;box-shadow:none;
+}
+.lillian-dashboard[data-theme] .conversation-bubble{max-width:100%;width:100%;padding:12px 0;align-self:stretch}
+.lillian-dashboard[data-theme] .conversation-bubble.from-you{padding-left:20px}
+.lillian-dashboard[data-theme] .chat-bubble{padding:12px 4px}
+.conversation-avatar{display:grid;place-items:center;width:40px;height:40px;flex-shrink:0;border-radius:50%;background:var(--brand-soft);color:var(--brand-ink);font-size:12px;font-weight:600}
+.conversation-heading>div{min-width:0}
+.conversation-heading h2,.conversation-heading p{overflow-wrap:anywhere}
+
+@media(max-width:1100px){
+  .navbar-activity-list time{display:none}
+  .navbar-activity-list .activity-item-icon{display:none}
+}
+@media(max-width:760px){
+  .navbar-activity-list{grid-template-columns:1fr}
+  .lillian-dashboard[data-theme] .navbar-activity-list>button{min-height:44px;padding:7px 4px;border-right:0;border-bottom:1px solid var(--dashboard-divider)}
+  .lillian-dashboard[data-theme] .navbar-activity-list>button:last-child{border-bottom:0}
+  .navbar-activity-list time{display:block}
+  .lillian-dashboard[data-theme] .navbar-search-mode{width:85%;max-height:34px;padding-left:9px;gap:7px}
+  .lillian-dashboard[data-theme] .search-launch{width:85%}
+  .lillian-dashboard .tabbed-panel.orders-list-widget{padding-top:12px}
+  .latest-orders{--orders-table-inset:6px}
+  .lillian-dashboard .compact-pagination button{width:22px;min-width:22px;height:24px;font-size:10px}
+  .compact-pagination{gap:1px}
+  .orders-table-footer{gap:6px;flex-wrap:wrap}
+  .lillian-dashboard .settings-fields{grid-template-columns:minmax(0,320px)}
+  .lillian-dashboard[data-theme] .inbox-thread{padding:10px 8px;border-bottom:0;border-right:1px solid var(--dashboard-divider)}
+  .conversation-avatar{width:32px;height:32px;font-size:10px}
+}
+
+/* Keep campaign creation in the panel’s bottom-right corner without covering rows. */
+.campaign-footer{display:flex;justify-content:flex-end;margin-top:auto;padding-top:14px;flex-shrink:0}
+.lillian-dashboard[data-theme] .campaign-add-button{width:52px;height:52px;min-width:52px;min-height:52px;aspect-ratio:1 / 1;flex-shrink:0;padding:0;border-radius:50%;gap:0}
+.lillian-dashboard[data-theme] .campaign-add-button svg{width:24px;height:24px}
+
+/* Keep native checkbox behavior with a consistently white checkmark. */
+.lillian-dashboard[data-theme] .settings-checkbox input[type=checkbox]{
+  appearance:none;flex-shrink:0;border:1px solid var(--text-input-border);border-radius:3px;
+  background-color:transparent;cursor:pointer;
+}
+.lillian-dashboard[data-theme] .settings-checkbox input[type=checkbox]:checked{
+  background-color:var(--brand-teal);border-color:var(--brand-teal);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='m3 8 3 3 7-7' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position:center;background-repeat:no-repeat;background-size:12px 12px;
+}
+.lillian-dashboard[data-theme] .settings-checkbox input[type=checkbox]:focus-visible{outline:2px solid var(--text-input-focus);outline-offset:3px}
+
+/* Conversations share a quiet sidebar with an anchored add action. */
+.inbox-sidebar{display:flex;flex-direction:column;min-width:0;min-height:0;border-right:1px solid var(--dashboard-divider);overflow:hidden}
+.lillian-dashboard[data-theme] .inbox-sidebar .inbox-thread-list{flex:1;min-height:0;border:0;background:transparent;box-shadow:none}
+.inbox-sidebar-footer{display:flex;justify-content:flex-end;flex-shrink:0;padding:12px 18px 18px}
+.lillian-dashboard[data-theme] .inbox-thread:not(.is-selected){background:transparent;box-shadow:none}
+.lillian-dashboard[data-theme] .inbox-thread .thread-avatar{background:transparent;border:0;box-shadow:none}
+.lillian-dashboard[data-theme] .inbox-thread.is-selected .thread-avatar{background:rgb(255 255 255 / 35%)}
+@media(max-width:760px){
+  .lillian-dashboard [data-slot=card].glass.inbox-workspace{grid-template-rows:140px minmax(0,1fr)}
+  .inbox-sidebar{border-right:0;border-bottom:1px solid var(--dashboard-divider)}
+  .inbox-sidebar-footer{padding:4px 10px 8px}
+}
+
+/* Native modal dialogs provide focus trapping, Escape dismissal, and an inert backdrop. */
+.lillian-dashboard .creation-modal{
+  position:fixed;inset:0;margin:auto;width:min(480px,calc(100vw - 32px));height:fit-content;max-height:calc(100dvh - 32px);
+  padding:0;overflow:hidden;border:1px solid #fff;border-radius:24px;
+  background:#f9fcfb;color:#31574d;box-shadow:0 24px 80px #102c2938;
+}
+.creation-modal[open]{display:flex;flex-direction:column}
+.creation-modal::backdrop{background:rgb(16 24 22 / 42%);backdrop-filter:blur(5px)}
+.creation-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid var(--dashboard-divider);flex-shrink:0}
+.creation-modal-heading h2{margin:0;font-size:18px;font-weight:600;letter-spacing:-.025em}
+.lillian-dashboard .creation-modal-close{width:32px;height:32px;padding:0;border:0;border-radius:50%;background:var(--control-hover);color:var(--control-ink)}
+.lillian-dashboard .creation-modal-close svg{width:18px;height:18px}
+.creation-modal>form{display:flex;flex-direction:column;min-height:0}
+.creation-modal-fields{display:flex;flex-direction:column;gap:20px;padding:24px;overflow-y:auto;min-height:0}
+.creation-modal-fields label{display:flex;flex-direction:column;gap:8px;font-size:12px;font-weight:500}
+.lillian-dashboard .creation-modal-fields :is(input,select){width:100%;height:40px;min-width:0;padding:0 13px;border:1px solid var(--text-input-border);border-radius:12px;background:var(--control-fill);color:var(--control-ink);font-size:13px}
+.creation-modal-footer{display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:18px 24px;border-top:1px solid var(--dashboard-divider);flex-shrink:0}
+.lillian-dashboard .creation-modal-footer button{height:38px;min-height:38px;padding:0 18px;border-radius:999px;font-size:12px}
+.lillian-dashboard .creation-modal-footer button[type=button]{background:var(--control-fill);color:var(--control-ink);border:1px solid var(--text-input-border);box-shadow:none}
+.lillian-dashboard[data-theme=dark] .creation-modal{background:#2b2d2f;color:#e5e7e6;border-color:#ffffff18;box-shadow:0 24px 80px #0006}
+@media(max-width:760px){
+  .creation-modal-heading{padding:16px 18px}
+  .creation-modal-fields{padding:20px 18px;gap:16px}
+  .creation-modal-footer{padding:16px 18px}
+}

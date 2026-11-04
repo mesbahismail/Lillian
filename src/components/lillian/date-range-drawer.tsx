@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react'
 import { DayPicker, type DateRange } from 'react-day-picker'
-import { Calendar, Check, ChevronDown } from 'lucide-react'
+import { Calendar, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { customPeriod, formatPeriod, periodPresets, presetPeriod, reportingToday, type ReportingPeriod } from './reporting-period'
 import './date-range-drawer.css'
@@ -80,7 +80,7 @@ export function DateRangeDrawer({ value, onChange, theme }: Props) {
           <div className="date-presets" role="group" aria-label="Preset periods">{periodPresets.map(preset => <Button variant="ghost" className="date-preset" key={preset} aria-pressed={draftLabel === preset} onClick={() => {
             const next = presetPeriod(preset)
             setDraftLabel(preset); setDraft({ from: next.from, to: next.to }); showMonth(next.from)
-          }}><span>{preset}</span>{draftLabel === preset && <Check />}</Button>)}</div>
+          }}><span>{preset}</span></Button>)}</div>
           <div className="custom-calendar"><div className="calendar-section-heading"><h3>Custom period</h3><Button variant="ghost" onClick={() => { setDraft(undefined); setDraftLabel('Custom range') }}>Clear</Button></div>
             <DayPicker mode="range" selected={draft} onSelect={next => { setDraft(next); setDraftLabel('Custom range') }} month={month} onMonthChange={setMonth} numberOfMonths={2} weekStartsOn={1} showOutsideDays fixedWeeks today={today} disabled={{ after: today }} endMonth={today} captionLayout="dropdown" startMonth={new Date(2000, 0, 1)} navLayout="around" />
             <p className="date-selection-hint" aria-live="polite">{draft?.from ? draft.to ? formatPeriod({ label: draftLabel, from: draft.from, to: draft.to }, true) : `${formatPeriod({ label: draftLabel, from: draft.from, to: draft.from }, true)} — Select an end date` : 'Select a start date, then an end date.'}</p>

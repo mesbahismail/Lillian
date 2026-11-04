@@ -41,11 +41,11 @@
 .orders-pagination button{border-radius:50%;color:#90a194;width:28px;height:28px}
 .orders-pagination button svg{width:15px;height:15px}
 .orders-demo-note{margin:-.6cqw 0 0;padding:0 2px;font-size:9px;color:#93a498;flex-shrink:0}
-.lillian-dashboard[data-theme=dark] .orders-metric>strong{color:#d9e8dc}
-.lillian-dashboard[data-theme=dark] .orders-data-table th{background:#2b4131}
-.lillian-dashboard[data-theme=dark] :is(.orders-id,.orders-customer,.orders-value){color:#c1d6c6}
-.lillian-dashboard[data-theme=dark] .orders-status{background:#314c37;border:1px solid var(--dashboard-border);color:#b3cfae}
-.lillian-dashboard[data-theme=dark] .orders-controls .page-filter-tabs button[aria-pressed=true]{background:#3a513c;color:#c1d8bf}
+.lillian-dashboard[data-theme=dark] .orders-metric>strong{color:#e4e4e4}
+.lillian-dashboard[data-theme=dark] .orders-data-table th{background:#3b3b3b}
+.lillian-dashboard[data-theme=dark] :is(.orders-id,.orders-customer,.orders-value){color:#d0d0d0}
+.lillian-dashboard[data-theme=dark] .orders-status{background:#454545;border:1px solid var(--dashboard-border);color:#c7c7c7}
+.lillian-dashboard[data-theme=dark] .orders-controls .page-filter-tabs button[aria-pressed=true]{background:#4b4b4b;color:#d1d1d1}
 @media(hover:hover) and (prefers-reduced-motion:no-preference){.orders-metric:hover{transform:scale(1.02)}}
 @media(max-width:760px){
   .orders-page{gap:10px}

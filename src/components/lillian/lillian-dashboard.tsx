@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { ArrowUpRight, Bell, Check, ChevronLeft, ChevronRight, CircleHelp, CreditCard, House, List, LogOut, Megaphone, MessageCircle, Moon, PieChart, Search, Send, Settings, Sparkles, Sun, UserRound, UsersRound, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -15,13 +15,14 @@ import { ProfilePanel, defaultProfile, type DemoProfile } from './profile-tools'
 import { OrdersPage } from './orders-page'
 import './lillian-dashboard.css'
 import './light-surfaces.css'
+import './workspace-refinements.css'
 
 const sources = [
-  { key: 'gold', label: 'Direct', color: '#b8b64b', points: '0,140 90,107 185,124 280,140 375,117 470,121 565,144 660,175 750,157' },
-  { key: 'green', label: 'Direct', color: '#8abb57', points: '0,90 90,35 185,63 280,90 375,51 470,61 565,98 660,148 750,119' },
-  { key: 'blue', label: 'Meta Ads', color: '#4eb43c', points: '0,129 90,61 185,103 280,28 375,140 470,162 565,73 660,19 750,96' },
-  { key: 'purple', label: 'Social Media', color: '#32b691', points: '0,143 90,167 185,125 280,98 375,89 470,119 565,96 660,151 750,124' },
-  { key: 'teal', label: 'SEO', color: '#369fb9', points: '0,131 90,74 185,110 280,74 375,111 470,81 565,135 660,104 750,149' },
+  { key: 'gold', label: 'Direct', color: 'var(--chart-1)', points: '0,140 90,107 185,124 280,140 375,117 470,121 565,144 660,175 750,157' },
+  { key: 'green', label: 'Direct', color: 'var(--chart-2)', points: '0,90 90,35 185,63 280,90 375,51 470,61 565,98 660,148 750,119' },
+  { key: 'blue', label: 'Meta Ads', color: 'var(--chart-3)', points: '0,129 90,61 185,103 280,28 375,140 470,162 565,73 660,19 750,96' },
+  { key: 'purple', label: 'Social Media', color: 'var(--chart-4)', points: '0,143 90,167 185,125 280,98 375,89 470,119 565,96 660,151 750,124' },
+  { key: 'teal', label: 'SEO', color: 'var(--chart-5)', points: '0,131 90,74 185,110 280,74 375,111 470,81 565,135 660,104 750,149' },
 ]
 const navigation = [ { name: 'Overview', icon: House }, { name: 'Orders', icon: List }, { name: 'Campaigns', icon: Megaphone }, { name: 'Analytics', icon: PieChart }, { name: 'Inbox', icon: MessageCircle }, { name: 'Settings', icon: Settings } ]
 const funnelSteps = [
@@ -37,14 +38,22 @@ const profileImage = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http:
 type ChatMessage = { role: 'assistant' | 'user'; text: string }
 
 function LilyLogo() {
-  return <svg viewBox="0 0 48 48" fill="none" role="img" aria-label="Lily flower logo">
-    <g fill="currentColor" fillRule="evenodd" clipRule="evenodd">
-      <path d="M24 31C13 26 15 12 24 4c9 8 11 22 0 27Zm0-21c-4 6-5 13-1 18-1-7 0-12 1-18Z" />
-      <path d="M23 33C10 35 5 24 4 13c10 0 20 7 19 20ZM9 18c2 8 6 12 12 13-6-4-8-8-12-13Z" />
-      <path d="M25 33c13 2 18-9 19-20-10 0-20 7-19 20Zm14-15c-2 8-6 12-12 13 6-4 8-8 12-13Z" />
-      <path d="M23 39c-6 1-11-2-13-7 6 0 10 2 13 7Zm2-3c5 1 10-2 12-6-6 0-9 2-12 6Z" />
-    </g>
-    <path d="M24 43V30" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+  const id = useId()
+  const gradientId = `${id}-gradient`
+  const clipId = `${id}-clip`
+  return <svg viewBox="0 0 320 320" fill="none" role="img" aria-label="Lillian logo">
+  <g clipPath={`url(#${clipId})`}>
+  <path d="M160 0C248.366 0 320 71.6344 320 160C320 248.366 248.366 320 160 320C71.6344 320 0 248.366 0 160C0 71.6344 71.6344 0 160 0ZM160.645 286.866C159.061 294.212 156.637 301.287 153.466 308.001C155.633 308.095 157.811 308.148 160 308.148C163.057 308.148 166.092 308.053 169.103 307.87C165.504 301.233 162.65 294.201 160.645 286.866ZM34.9363 239.444C57.7354 275.26 95.4938 300.622 139.416 306.727C121.729 272.546 82.617 246.802 34.9363 239.444ZM284.968 239.592C237.768 247.129 199.084 272.702 181.481 306.597C224.959 300.282 262.315 275.086 284.968 239.592ZM219.016 171.218C180.622 202.394 162.697 246.522 171.317 285.929C206.706 256.273 223.765 213.413 219.016 171.218ZM101.045 171.215C96.2969 213.41 113.356 256.268 148.744 285.923C157.361 246.518 139.437 202.39 101.045 171.215ZM13.6516 139.511C13.3899 140.434 13.1403 141.361 12.8993 142.292C12.2077 148.098 11.8519 154.007 11.8519 160C11.8519 181.625 16.4895 202.166 24.8177 220.689C54.5386 223.62 83.2931 234.499 106.875 252.891C87.9658 225.941 80.6457 194.782 84.2101 164.705C64.4345 148.481 39.2034 139.9 13.6516 139.511ZM306.348 136.976C280.524 137.271 255 145.939 235.067 162.405C239.293 193.182 232.093 225.239 212.714 252.873C236.412 234.402 265.329 223.506 295.2 220.642C303.515 202.132 308.148 181.608 308.148 160C308.148 152.222 307.547 144.584 306.392 137.13C306.377 137.078 306.363 137.027 306.348 136.976ZM160.162 79.8438C133.645 97.169 113.967 123.047 105.697 153.209C133.543 173.685 153.48 203.098 160.532 236.814C167.532 203.35 187.231 174.124 214.751 153.669C206.556 123.309 186.814 97.2572 160.162 79.8438Z" fillRule="evenodd" clipRule="evenodd" fill={`url(#${gradientId})`}/>
+  </g>
+  <defs>
+  <linearGradient id={gradientId} x1="297.778" y1="-2.00893e-05" x2="-43.1533" y2="144.864" gradientUnits="userSpaceOnUse">
+  <stop stopColor="#41DF88"/>
+  <stop offset="0.769231" stopColor="#00AE9F"/>
+  </linearGradient>
+  <clipPath id={clipId}>
+  <rect width="320" height="320" fill="white"/>
+  </clipPath>
+  </defs>
   </svg>
 }
 
@@ -79,6 +88,7 @@ export default function LillianDashboard() {
   const [detailView, setDetailView] = useState<DetailView | null>(detailViewFromHash)
   const [workspacePage, setWorkspacePage] = useState<WorkspacePage | null>(workspacePageFromHash)
   const [active, setActive] = useState<string>(() => workspacePageFromHash() ?? detailViewFromHash() ?? 'Overview')
+  const searchLabel = active === 'Inbox' ? 'Search chats' : active === 'Overview' ? 'Search orders' : `Search ${active.toLowerCase()}`
   useEffect(() => {
     const syncRoute = () => { const view = detailViewFromHash(); const page = workspacePageFromHash(); setDetailView(view); setWorkspacePage(page); setActive(page ?? view ?? 'Overview'); setPanel('') }
     window.addEventListener('hashchange', syncRoute)
@@ -109,8 +119,11 @@ export default function LillianDashboard() {
     window.addEventListener('keydown', closeOnEscape)
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [chatOpen])
-  const orders = Array.from({ length: 5 }, (_, i) => ({ id: page === 0 ? 345 : 345 - page * 5 - i, plan: 'Annual', time: '2h ago', amount: '+23.00' }))
+  const orders = Array.from({ length: 24 }, (_, i) => ({ id: 345 - i, plan: 'Annual', time: '2h ago', amount: '+23.00' }))
   const filtered = orders.filter(order => `Order #${order.id} ${order.plan} ${order.time} ${order.amount}`.toLowerCase().includes(query.toLowerCase()))
+  const latestPageCount = Math.max(1, Math.ceil(filtered.length / 5))
+  const latestPage = Math.min(page, latestPageCount - 1)
+  const latestOrders = filtered.slice(latestPage * 5, latestPage * 5 + 5)
   const amount = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(340 * period.days)
 
   const detailData: Record<DetailView, DetailData> = {
@@ -142,9 +155,9 @@ export default function LillianDashboard() {
       <header ref={toolbar} className={`glass top-toolbar ${profileOpen ? 'profile-open' : ''} ${notificationsOpen ? 'notifications-open' : ''} ${searchOpen ? 'search-open' : ''}`} onKeyDown={event => { if (event.key === 'Escape' && (profileOpen || notificationsOpen)) { event.stopPropagation(); if (profileOpen) profileTrigger.current?.focus(); else notificationsTrigger.current?.focus(); setProfileOpen(false); setNotificationsOpen(false) } }}>
         <div className="toolbar-main-row" inert={searchOpen} aria-hidden={searchOpen}>
         <div className="nav-brand"><div className="lily-logo"><LilyLogo /></div><span className="nav-page-name">{active}</span></div>
-        <Button ref={searchTrigger} variant="ghost" className="search-launch" aria-label="Open workspace search" aria-expanded={searchOpen} aria-controls="navbar-search" onClick={() => { setSearchOpen(true); setProfileOpen(false); setNotificationsOpen(false) }}><Search /><span>Search</span></Button>
+        <Button ref={searchTrigger} variant="ghost" className="search-launch" aria-label={`Open ${searchLabel.toLowerCase()}`} aria-expanded={searchOpen} aria-controls="navbar-search" onClick={() => { setSearchOpen(true); setProfileOpen(false); setNotificationsOpen(false) }}><Search /><span>{searchLabel}…</span></Button>
         <div className="toolbar-actions"><div className="toolbar-tools">
-          <Button ref={notificationsTrigger} variant="ghost" size="icon" className="notification-trigger" aria-label={notificationsRead ? 'Notifications' : 'Notifications, 2 unread'} aria-expanded={notificationsOpen} aria-controls="navbar-activity" onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false) }}><Bell />{!notificationsRead && <span className="unread-dot" />}</Button>
+          <Button ref={notificationsTrigger} variant="ghost" size="icon" className="notification-trigger" aria-label={notificationsRead ? 'Notifications' : 'Notifications, 3 unread'} aria-expanded={notificationsOpen} aria-controls="navbar-activity" onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false) }}><Bell />{!notificationsRead && <span className="unread-dot" />}</Button>
           <span className="toolbar-divider" />
           <Button variant="ghost" size="icon" aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`} aria-pressed={theme === 'dark'} onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? <Moon /> : <Sun />}</Button>
         </div>
@@ -152,14 +165,15 @@ export default function LillianDashboard() {
         </div>
         </div>
         {searchOpen && <form id="navbar-search" className="navbar-search-mode" role="search" onSubmit={event => event.preventDefault()} onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); setSearchOpen(false); setQuery(''); window.requestAnimationFrame(() => searchTrigger.current?.focus()) } }}>
-          <Search aria-hidden="true" /><Input autoFocus aria-label="Search workspace" placeholder="Search your workspace…" value={query} onChange={event => setQuery(event.target.value)} /><Button variant="ghost" type="button" size="icon" aria-label="Close search" onClick={() => { setSearchOpen(false); setQuery(''); window.requestAnimationFrame(() => searchTrigger.current?.focus()) }}><X /></Button>
+          <Search aria-hidden="true" /><Input autoFocus aria-label={searchLabel} placeholder={`${searchLabel}…`} value={query} onChange={event => setQuery(event.target.value)} /><Button variant="ghost" type="button" size="icon" aria-label="Close search" onClick={() => { setSearchOpen(false); setQuery(''); window.requestAnimationFrame(() => searchTrigger.current?.focus()) }}><X /></Button>
         </form>}
         <div className="notification-nav-expansion" inert={!notificationsOpen} aria-hidden={!notificationsOpen}><section className="notification-nav-inner" id="navbar-activity" aria-label="Activity and notifications">
           <div className="navbar-activity-content"><div className="navbar-activity-heading"><h2>Activity</h2>{!notificationsRead && <Button variant="ghost" onClick={() => setNotificationsRead(true)}><Check />Mark all as read</Button>}</div>
-            {notificationsRead ? <p className="navbar-activity-empty"><Check />You’re all caught up.</p> : <div className="navbar-activity-list">
+            <div className={`navbar-activity-list ${notificationsRead ? 'activity-read' : ''}`}>
               <Button variant="ghost" onClick={() => { navigateDetails('Orders'); setNotificationsRead(true) }}><span className="activity-item-icon"><List /></span><span><strong>New subscriptions</strong><small>24 users subscribed today.</small></span><time>2h ago</time><ArrowUpRight /></Button>
               <Button variant="ghost" onClick={() => { navigateDetails('My Funnel'); setNotificationsRead(true) }}><span className="activity-item-icon"><PieChart /></span><span><strong>Your funnel update</strong><small>Overall conversion is 2.4%.</small></span><time>2h ago</time><ArrowUpRight /></Button>
-            </div>}
+              <Button variant="ghost" onClick={() => { navigateDetails('Visits'); setNotificationsRead(true) }}><span className="activity-item-icon"><UsersRound /></span><span><strong>Traffic today</strong><small>1,000 visitors explored your site.</small></span><time>3h ago</time><ArrowUpRight /></Button>
+            </div>
           </div>
         </section></div>
         <div className="profile-nav-expansion" inert={!profileOpen} aria-hidden={!profileOpen}><div className="profile-nav-expansion-inner"><nav className="profile-actions-grid" id="profile-actions-grid" aria-label="Profile actions">
@@ -197,16 +211,16 @@ export default function LillianDashboard() {
           </Card>
         </div>
         <div className="dashboard-column right-column">
-          <Card className="glass latest-orders"><div className="card-heading"><h2>Latest orders</h2><div className="pagination"><Button className="round-button" aria-label="Previous orders" onClick={() => setPage(Math.max(0, page - 1))}><ChevronLeft /></Button><Button className="round-button" aria-label="Next orders" onClick={() => setPage(page + 1)}><ChevronRight /></Button></div></div>
-            <div className="order-table inset-surface" role="table" aria-label="Latest orders"><div role="rowgroup">{filtered.map((order, index) => <div className="order-row" role="row" key={index}><span role="cell">Order #{order.id}</span><span role="cell">{order.plan}</span><span role="cell">{order.time}</span><strong role="cell">{order.amount}</strong></div>)}{filtered.length === 0 && <p className="no-orders">No orders match “{query}”.</p>}</div></div>
+          <Card className="glass latest-orders"><div className="card-heading"><h2>Latest orders</h2><div className="pagination" role="group" aria-label="Latest orders pages"><Button className="round-button" aria-label="Previous orders" disabled={latestPage === 0} onClick={() => setPage(latestPage - 1)}><ChevronLeft /></Button><Button className="round-button" aria-label="Next orders" disabled={latestPage >= latestPageCount - 1} onClick={() => setPage(latestPage + 1)}><ChevronRight /></Button></div></div>
+            <div className="order-table inset-surface" role="table" aria-label="Latest orders"><div role="rowgroup">{latestOrders.map((order, index) => <div className="order-row" role="row" key={index}><span role="cell">Order #{order.id}</span><span role="cell">{order.plan}</span><span role="cell">{order.time}</span><strong role="cell">{order.amount}</strong></div>)}{filtered.length === 0 && <p className="no-orders">No orders match “{query}”.</p>}</div></div>
           </Card>
           <Card className="glass sources-card"><div className="card-heading"><h2>Top sources</h2><Button className="round-button widget-details-button" aria-label="View source details" onClick={() => navigateDetails('Top sources')}><ArrowUpRight /></Button></div>
             <SourcesChart sources={sources} hidden={hidden} onToggle={key => setHidden(current => current.includes(key) ? current.filter(source => source !== key) : [...current, key])} />
           </Card>
         </div>
       </main>
-      {workspacePage && <WorkspacePages key={`${workspacePage}-${settingsTab}`} page={workspacePage} query={query} data={detailData} onDetails={navigateDetails} initialSettingsTab={settingsTab} />}
-      {detailView === 'Orders' && <OrdersPage query={query} onQueryChange={setQuery} />}
+      {workspacePage && <WorkspacePages key={`${workspacePage}-${settingsTab}`} page={workspacePage} query={query} onQueryChange={setQuery} data={detailData} onDetails={navigateDetails} initialSettingsTab={settingsTab} />}
+      {detailView === 'Orders' && <OrdersPage query={query} />}
       {detailView && detailView !== 'Orders' && <WidgetDetails view={detailView} data={detailData[detailView]} query={query} onBack={() => navigateDetails(null)} />}
       <Button ref={chatTrigger} className="support-tab" aria-label="Open Lily AI chat" aria-expanded={chatOpen} aria-controls="lily-chat" onClick={() => { setChatOpen(!chatOpen); setPanel('') }}>{chatOpen ? <X /> : <MessageCircle />}</Button>
       {chatOpen && <section id="lily-chat" className="ai-chat-panel glass" role="dialog" aria-label="Lily AI chat">

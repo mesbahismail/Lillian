@@ -1,6 +1,9 @@
 import { readFile, mkdir, writeFile } from 'node:fs/promises'
 
 const files = [
+  { path: 'src/components/lillian/creation-modal.tsx', type: 'registry:component', target: 'components/lillian/creation-modal.tsx' },
+  { path: 'src/components/lillian/compact-pagination.tsx', type: 'registry:component', target: 'components/lillian/compact-pagination.tsx' },
+  { path: 'src/components/lillian/workspace-refinements.css', type: 'registry:file', target: 'components/lillian/workspace-refinements.css' },
   { path: 'src/components/lillian/orders-page.tsx', type: 'registry:component', target: 'components/lillian/orders-page.tsx' },
   { path: 'src/components/lillian/orders-page.css', type: 'registry:file', target: 'components/lillian/orders-page.css' },
   { path: 'src/components/lillian/orders-data.ts', type: 'registry:lib', target: 'components/lillian/orders-data.ts' },
