@@ -13,6 +13,15 @@
   --dashboard-divider:#ffffff12;
   --background:#242628;
   --foreground:#e4e6e5;
+  --card:#2b2d2f;
+  --card-foreground:var(--foreground);
+  --popover:#2b2d2f;
+  --popover-foreground:var(--foreground);
+  --secondary:#343638;
+  --secondary-foreground:var(--foreground);
+  --border:#ffffff18;
+  --input:#515557;
+  --ring:var(--text-input-focus);
   --muted:#343638;
   --muted-foreground:#a9aeac;
   --accent:#343b39;
@@ -40,6 +49,11 @@
 .lillian-dashboard[data-theme=dark] .chart-grid{stroke:#aab4b0;stroke-opacity:.12}
 .lillian-dashboard[data-theme=dark] .minimal-funnel .step-track{background:#4a4e4d}
 .lillian-dashboard[data-theme=dark] .chat-composer{background:#242628}
+.lillian-dashboard[data-theme=dark] :is(.profile-tools-panel label,.classic-tab-panel legend,.date-selection-hint,.widget-details-description,.widget-details-table th){color:var(--muted-foreground)}
+.lillian-dashboard[data-theme=dark] .profile-account-list button{color:var(--foreground)}
+.lillian-dashboard[data-theme=dark] .profile-account-list button:hover{background:var(--control-hover)}
+.lillian-dashboard[data-theme=dark] .profile-account-list small{color:var(--muted-foreground)}
+.lillian-dashboard[data-theme=dark] .orders-data-table th[aria-sort]:not([aria-sort=none]) button{color:var(--brand-ink)}
 
 /* Gradient controls have no border seam or inset edge. */
 .lillian-dashboard[data-theme] :is(.workspace-action,.apply-period,.profile-tools-panel form>button,.detail-panel form>button,.demo-signed-out button,.chat-composer>button,.support-tab,.settings-footer button[type=submit],.campaign-create>button[type=submit],.team-invite button){
@@ -167,7 +181,7 @@
 
 /* Keep campaign creation in the panel’s bottom-right corner without covering rows. */
 .campaign-footer{display:flex;justify-content:flex-end;margin-top:auto;padding-top:14px;flex-shrink:0}
-.lillian-dashboard[data-theme] .campaign-add-button{width:52px;height:52px;min-width:52px;min-height:52px;aspect-ratio:1 / 1;flex-shrink:0;padding:0;border-radius:50%;gap:0}
+.lillian-dashboard[data-theme] .campaign-add-button{width:48px;height:48px;min-width:48px;min-height:48px;aspect-ratio:1 / 1;flex-shrink:0;padding:0;border-radius:50%;gap:0}
 .lillian-dashboard[data-theme] .campaign-add-button svg{width:24px;height:24px}
 
 /* Keep native checkbox behavior with a consistently white checkmark. */
@@ -189,6 +203,7 @@
 .lillian-dashboard[data-theme] .inbox-thread:not(.is-selected){background:transparent;box-shadow:none}
 .lillian-dashboard[data-theme] .inbox-thread .thread-avatar{background:transparent;border:0;box-shadow:none}
 .lillian-dashboard[data-theme] .inbox-thread.is-selected .thread-avatar{background:rgb(255 255 255 / 35%)}
+.lillian-dashboard[data-theme=dark] .inbox-thread.is-selected .thread-avatar{background:rgb(255 255 255 / 8%);color:var(--brand-ink)}
 @media(max-width:760px){
   .lillian-dashboard [data-slot=card].glass.inbox-workspace{grid-template-rows:140px minmax(0,1fr)}
   .inbox-sidebar{border-right:0;border-bottom:1px solid var(--dashboard-divider)}
@@ -219,4 +234,43 @@
   .creation-modal-heading{padding:16px 18px}
   .creation-modal-fields{padding:20px 18px;gap:16px}
   .creation-modal-footer{padding:16px 18px}
+}
+
+/* A horizontal mobile dock frees the left edge and reserves space below each page. */
+@media(max-width:760px){
+  .lillian-dashboard{
+    --side-content-left:12px;
+    --navigation-row-size:max(52px,8dvh);
+    --mobile-calendar-top:calc(var(--navigation-row-size) + 8px);
+    --mobile-content-top:calc(var(--mobile-calendar-top) + 52px);
+    --mobile-nav-clearance:calc(80px + env(safe-area-inset-bottom,0px));
+  }
+  .lillian-dashboard[data-theme] .side-rail{
+    position:fixed;top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));left:12px;right:12px;
+    width:auto;height:56px;padding:4px 6px;border-radius:20px;z-index:25;transition:none;
+  }
+  .lillian-dashboard .side-rail nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;align-items:center}
+  .lillian-dashboard .side-rail .rail-button{width:100%;height:44px;min-width:0;padding:0;border-radius:12px}
+  .lillian-dashboard .side-rail .rail-button svg{width:21px;height:21px}
+  .lillian-dashboard .side-rail .rail-button.is-active::after{
+    top:auto;bottom:1px;left:50%;right:auto;transform:translateX(-50%);width:18px;height:3px;max-height:none;border-radius:999px;
+  }
+  .lillian-dashboard :is(.dashboard-columns,.widget-details-page,.workspace-page){
+    top:var(--mobile-content-top);bottom:var(--mobile-nav-clearance);left:12px;right:12px;
+  }
+  .lillian-dashboard .calendar-bookmark{
+    top:var(--mobile-calendar-top);left:64px;right:12px;--calendar-header-height:40px;
+  }
+  .lillian-dashboard .calendar-expansion-inner{max-height:calc(100dvh - var(--mobile-content-top) - var(--mobile-nav-clearance))}
+  .lillian-dashboard[data-theme] .support-tab{
+    position:absolute;top:var(--mobile-calendar-top);bottom:auto;left:12px;right:auto;
+    width:40px;height:40px;border-radius:50%;padding:0;transition:none;
+  }
+  .lillian-dashboard .support-tab svg{width:21px;height:21px}
+  .lillian-dashboard .ai-chat-panel{
+    left:12px;right:12px;bottom:var(--mobile-nav-clearance);width:auto;
+    height:min(580px,calc(100dvh - var(--mobile-nav-clearance) - 12px));
+    max-height:calc(100dvh - var(--mobile-nav-clearance) - 12px);
+  }
+  .lillian-dashboard .detail-panel{bottom:var(--mobile-nav-clearance);max-height:calc(100dvh - var(--mobile-nav-clearance) - 12px);overflow-y:auto}
 }
