@@ -307,7 +307,7 @@
 .lillian-dashboard[data-theme] :is(.rail-button.is-active::after,.unread-dot,.summary-dot-button[aria-pressed=true] span,.inbox-thread i,.minimal-funnel .step-track>span){background:var(--brand-gradient)}
 .lillian-dashboard[data-theme] :is(.conversion-badge,.page-filter-tabs button[aria-pressed=true],.date-preset[aria-pressed=true],.inbox-thread.is-selected,.conversation-bubble.from-you,.chat-user){background:var(--brand-soft);color:var(--brand-ink)}
 .lillian-dashboard[data-theme] .classic-tabs button[aria-selected=true]{color:var(--brand-ink)}
-.lillian-dashboard[data-theme] .calendar-bookmark{
+.lillian-dashboard[data-theme] .calendar-bookmark .rdp-root{
   --rdp-accent-color:var(--brand-teal);
   --rdp-accent-background-color:var(--brand-soft);
   --rdp-range_middle-background-color:var(--brand-soft);
@@ -315,7 +315,7 @@
   --rdp-range_start-color:var(--brand-on-accent);
   --rdp-range_end-color:var(--brand-on-accent);
 }
-.lillian-dashboard[data-theme] .rdp-selected .rdp-day_button{background:var(--brand-gradient);color:var(--brand-on-accent);border-color:var(--brand-teal)}
+.lillian-dashboard[data-theme] :is(.rdp-range_start,.rdp-range_end) .rdp-day_button{background:var(--brand-gradient);color:var(--brand-on-accent);border:0}
 .lillian-dashboard[data-theme] input[type=checkbox]{accent-color:var(--brand-teal)}
 .lillian-dashboard[data-theme] .chart-hover-guide{stroke:var(--brand-teal)}
 .lillian-dashboard[data-theme] .analytics-horizontal-track>span{background:var(--brand-gradient)}

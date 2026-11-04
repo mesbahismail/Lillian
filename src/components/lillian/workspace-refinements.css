@@ -274,3 +274,30 @@
   }
   .lillian-dashboard .detail-panel{bottom:var(--mobile-nav-clearance);max-height:calc(100dvh - var(--mobile-nav-clearance) - 12px);overflow-y:auto}
 }
+
+/* A continuous tinted range with gradient circles only at its two endpoints. */
+.lillian-dashboard[data-theme] .calendar-bookmark .rdp-root{
+  --rdp-day-width:36px;
+  --rdp-day-height:36px;
+  --rdp-day_button-width:36px;
+  --rdp-day_button-height:36px;
+  --rdp-selected-border:0;
+  --rdp-day_button-border:0;
+  --rdp-today-color:var(--brand-ink);
+  width:100%;min-width:0;
+}
+.lillian-dashboard .calendar-bookmark .custom-calendar{container-type:inline-size;overflow-x:visible}
+.lillian-dashboard .calendar-bookmark .rdp-months{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.lillian-dashboard .calendar-bookmark .rdp-month{min-width:0}
+.lillian-dashboard .calendar-bookmark .rdp-month_grid{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0 4px}
+.lillian-dashboard .calendar-bookmark .rdp-day_button{margin-inline:auto;font-size:12px}
+.lillian-dashboard .calendar-bookmark .rdp-week{height:36px}
+.lillian-dashboard[data-theme] .calendar-bookmark .rdp-range_middle .rdp-day_button{background:transparent;color:var(--brand-ink);border:0;border-radius:0}
+.lillian-dashboard .calendar-bookmark .rdp-range_middle:first-child{border-radius:999px 0 0 999px}
+.lillian-dashboard .calendar-bookmark .rdp-range_middle:last-child{border-radius:0 999px 999px 0}
+.lillian-dashboard .calendar-bookmark :is(.rdp-range_start:last-child,.rdp-range_end:first-child,.rdp-range_start.rdp-range_end){background:transparent}
+.lillian-dashboard .calendar-bookmark :is(.rdp-range_start,.rdp-range_end) .rdp-day_button{border-radius:50%}
+.lillian-dashboard .calendar-bookmark .rdp-day:not(.rdp-selected):not(.rdp-disabled) .rdp-day_button:hover{background:var(--brand-soft);color:var(--brand-ink)}
+@container (max-width:520px){
+  .lillian-dashboard .calendar-bookmark .rdp-months{grid-template-columns:minmax(0,1fr);gap:24px;max-width:320px;margin-inline:auto}
+}
